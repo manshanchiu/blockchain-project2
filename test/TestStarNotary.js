@@ -77,7 +77,7 @@ it('lets user2 buy a star and decreases its balance in ether', async() => {
 
 it('the token name and token symbol are added properly.', async() => {
     let instance = await StarNotary.deployed();
-    assert.equal(await instance.name.call(),'roy token')
+    assert.equal(await instance.name.call(),'Roy Test Token')
     assert.equal(await instance.symbol.call(),'RTD')
 
 });

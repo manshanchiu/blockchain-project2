@@ -39,7 +39,7 @@ contract StarNotary is ERC721 {
         uint256 starCost = starsForSale[_tokenId];
         address ownerAddress = ownerOf(_tokenId);
         require(msg.value > starCost, "You need to have enough Ether");
-        transferFrom(ownerAddress, msg.sender, _tokenId); // We can't use _addTokenTo or_removeTokenFrom functions, now we have to use _transferFrom
+        _transfer(ownerAddress, msg.sender, _tokenId); // We can't use _addTokenTo or_removeTokenFrom functions, now we have to use _transferFrom
         address payable ownerAddressPayable = payable(ownerAddress); // We need to make this conversion to be able to use transfer() function to transfer ethers
         ownerAddressPayable.transfer(starCost);
         if(msg.value > starCost) {
@@ -63,8 +63,8 @@ contract StarNotary is ERC721 {
         address owner1Address = ownerOf(_tokenId1);
         address owner2Address = ownerOf(_tokenId2);
         require(owner1Address == msg.sender || owner2Address == msg.sender, "You can't exchange the Star you don't owned");
-        transferFrom(owner1Address, owner2Address, _tokenId1);
-        transferFrom(owner2Address, owner1Address, _tokenId2);
+        _transfer(owner1Address, owner2Address, _tokenId1);
+        _transfer(owner2Address, owner1Address, _tokenId2);
     }
 
     // Implement Task 1 Transfer Stars
@@ -72,7 +72,7 @@ contract StarNotary is ERC721 {
         //1. Check if the sender is the ownerOf(_tokenId)
         //2. Use the transferFrom(from, to, tokenId); function to transfer the Star
         // why we need to add this check?????????????? the transferFrom function already did this checking
-        require(ownerOf(_tokenId) == msg.sender, "You can't transfer the Star you don't owned");
+        // require(ownerOf(_tokenId) == msg.sender, "You can't transfer the Star you don't owned");
         transferFrom(msg.sender, _to1, _tokenId);
     }
 
